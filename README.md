@@ -36,17 +36,7 @@ is not a recommended way to install extensions, I changed to the following:
 
 **Note:** I don't know if `defaultProfile.linux` is the right setting to replace `shell.linux`. I just found it in the [VS Code documentation](https://code.visualstudio.com/docs/editor/integrated-terminal#_configuration). So maybe it does serve its purpose.
 
-For the Dockerfile, I made the following changes🚡
-
-```dockerfile
-# Because JAVA_HOME was not set properly, cmdline-tools was a bit confused which JDK to use. We also have java-1.8.0-openjdk-amd64 installed, which is not compatible with Android SDK that needs JDK 8. So I set JAVA_HOME to the correct JDK.
-ENV JAVA_HOME "/usr/lib/jvm/java-11-openjdk-amd64"
-ENV PATH "$PATH:$JAVA_HOME/bin"
-
-# Also I added "cmdline-tools;latest" to the installation.
-# Most importantly, I redirected the output to /dev/null because it was clogging up the terminal.
-RUN cd Android/sdk/tools/bin && ./sdkmanager "build-tools;29.0.2" "patcher;v4" "platform-tools" "platforms;android-29" "sources;android-29" "cmdline-tools;latest" > /dev/null
-```
+For the Dockerfile, I instead based it on the `cirrusci/android-sdk` image, which facilitates the installation of Android SDK. Then we just customize the flutter installation ourselves.
 
 ## Usage
 
