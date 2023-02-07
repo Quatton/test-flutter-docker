@@ -1,0 +1,15 @@
+{
+  "name": "flutter_docker",
+  "context": "..",
+  "dockerFile": "../Dockerfile",
+  "remoteUser": "developer",
+
+  "customizations": {
+    "vscode": {
+      "extensions": ["dart-code.flutter"]
+    }
+  },
+  "runArgs": ["--privileged"],
+  "workspaceMount": "source=${localWorkspaceFolder}/workspace,target=/home/developer/workspace,type=bind,consistency=delegated",
+  "workspaceFolder": "/home/developer/workspace"
+}
